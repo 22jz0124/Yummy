@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yummy</title>
+  <!-- <script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzSVrsFZgDWzhrrAXlb0sd5engQsMQtHU&callback=initMap" defer></script> -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="./assets/js/main.js" type="module"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <noscript>Javascriptを有効にしてください</noscript>
+  <div id="app">
+    <header>
+     <h1>Yummy</h1>
+    <!-- /header --></header>
+    <main>
+      <List v-if="page == 'list'"
+      @click-shop="showShopDetail"></List>
+
+      <Detail v-if="page == 'detail'"
+      @click-btn="backListPage"
+      :id="id"></Detail>
+
+
+      <div id="loading" v-if="loading">
+        <img src="./assets/img/loading.png" alt="" width="100" height="100" class="loading-img">
+        <p class="loading-txt">Now Loading...</p>
+      </div>
+    <!-- /main --></main>
+
+    <footer>
+      <p>&copy;Yummy 2024</p>
+    <!-- /footer --></footer>
+
+  </div>
+</body>
+</html>
