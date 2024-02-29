@@ -72,6 +72,10 @@ export default {
   props: {
     id: String
   },
+  emits: [
+    'click-btn',
+    'set-loading'
+  ],
   data() {
     return {
       shop: {}
@@ -79,11 +83,12 @@ export default {
   },
   methods: {
     onClickBtn() {
+      console.log('click-btn');
       this.$emit('click-btn');
     },
   },
   beforeMount() {
-    console.log('beforeMount');
+    this.$emit('set-loading', true);
     const obj = {
       type: 'GET',
       headers: {
@@ -96,7 +101,6 @@ export default {
     .then(data => {
       const temp = JSON.parse(data);
       this.shop = temp.results.shop[0];
-      console.log(this.shop);
       window.sessionStorage.setItem('lat', this.shop.lat);
       window.sessionStorage.setItem('lng', this.shop.lng);
 
@@ -105,6 +109,7 @@ export default {
       script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDzSVrsFZgDWzhrrAXlb0sd5engQsMQtHU&callback=initMap`;
       script.defer = true;
       document.body.appendChild(script);
+      this.$emit('set-loading', false);
     });
   }
 }

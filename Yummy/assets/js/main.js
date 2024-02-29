@@ -18,7 +18,10 @@ import Detail from './components/Detail.js'
       },
       backListPage() {
         this.page = 'list';
-
+        // console.log(this.page);
+      },
+      setLoading(v) {
+        this.loading = v;
       }
     }
   });

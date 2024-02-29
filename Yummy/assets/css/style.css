@@ -200,6 +200,7 @@ dl, dt, dd {
   background: #fff;
   border: 1px solid #333;
   margin: 20px auto;
+  cursor: pointer;
 }
 footer {
   text-align: center;

@@ -1,6 +1,5 @@
 export default {
   template: /* html*/`
-      <p @click="getLocation">クリック</p>
     <section id="list">
       <aside class="option">
         <h3>お店を探す</h3>
@@ -78,7 +77,8 @@ export default {
     </section>
   `,
   emits: [
-    'click-shop'
+    'click-shop',
+    'set-loading'
   ],
   data() {
     return {
@@ -105,7 +105,11 @@ export default {
     }
   },
   methods: {
+    /**
+     *　現在地を取得する
+     */
     getLocation() {
+      this.$emit('set-loading', true);
       const options = {
           enableHighAccuracy: true,
           timeout: 1000,
@@ -127,8 +131,13 @@ export default {
       } else {
           this.errorMessage = 'Geolocation is not supported by this browser.';
       }
+      this.$emit('set-loading', false);
     },
+    /**
+     * 飲食店一覧取得
+     */
     getGourmet() {
+      this.$emit('set-loading', true);
       const obj = {
         type: 'GET',
         headers: {
@@ -144,7 +153,11 @@ export default {
         this.list = temp.results.shop;
         this.setPagingData();
       });
+      this.$emit('set-loading', false);
     },
+    /**
+     * ページングの初期設定
+     */
     setPagingData() {
       this.maxPage = Math.floor((this.list.length - 1) / this.pageCout) + 1;
       if(this.maxPage < 3) {
@@ -152,6 +165,9 @@ export default {
       }
       this.currentPage = this.startPage = 1;
     },
+    /**
+     * ページング処理
+     */
     setCurrentPage(page) {
       console.log(page);
       this.currentPage = page;
@@ -173,6 +189,9 @@ export default {
       window.scroll({top: 0,  behavior: "smooth"});
 
     },
+    /**
+     * 飲食店詳細表示
+     */
     onClickShop(id) {
       this.$emit('click-shop', id);
     }

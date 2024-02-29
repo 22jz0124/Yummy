@@ -18,10 +18,12 @@
     <!-- /header --></header>
     <main>
       <List v-if="page == 'list'"
-      @click-shop="showShopDetail"></List>
+      @click-shop="showShopDetail"
+      @set-loading="setLoading"></List>
 
       <Detail v-if="page == 'detail'"
       @click-btn="backListPage"
+      @set-loading="setLoading"
       :id="id"></Detail>
 
 
